@@ -3,20 +3,20 @@ const { equal } = require('assert')
 const { __, test } = require('../support/koans')
 
 test("defining functions directly", () => {
-    const result = "a";
+    let result = "a";
     function changeResult() {
         // the ability to access a variables defined in the same scope as the function is known as 'closure'
         result = "b";
     };
     changeResult();
-    equal(__, result, 'what is the value of result?');
+    equal("b", result, 'what is the value of result?');
 });
 
 test("assigning functions to variables", () => {
     const triple = (input) => {
         return input * 3;
     };
-    equal(__, triple(4), 'what is triple 4?');
+    equal(12, triple(4), 'what is triple 4?');
 });
 
 test("self invoking functions", () => {
@@ -25,13 +25,13 @@ test("self invoking functions", () => {
     // self invoking functions are used to provide scoping and to alias variables
     (function(pv) {
         const secretValue = "password";
-        equal(__, pv, 'what is the value of pv?');
-        equal("__", typeof(secretValue), "is secretValue available in this context?");
-        equal("__", typeof(publicValue), "is publicValue available in this context?");
+        equal("shared", pv, 'what is the value of pv?');
+        equal("string", typeof(secretValue), "is secretValue available in this context?");
+        equal("string", typeof(publicValue), "is publicValue available in this context?");
     })(publicValue);
 
-    equal("__", typeof(secretValue), "is secretValue available in this context?");
-    equal("__", typeof(publicValue), "is publicValue available in this context?");
+    equal('undefined', typeof(secretValue), "is secretValue available in this context?");
+    equal("string", typeof(publicValue), "is publicValue available in this context?");
 });
 
 test("arguments array", () => {
@@ -40,7 +40,9 @@ test("arguments array", () => {
         for(let i = 0; i < arguments.length; i++) {
             // complete the implementation of this method so that it returns the sum of its arguments
             // __
+            total += arguments[i]
         }
+        return total
         // __
     };
 
@@ -59,7 +61,7 @@ test("using call to invoke function", () => {
     //function, and the arguments to be sent to the function,multiple arguments are separated by commas.
     const result = invokee.call("I am this!", "Where did it come from?");
         
-    equal(__, result, "what will the value of invokee's this be?");
+    equal("I am this!Where did it come from?", result, "what will the value of invokee's this be?");
 });
 
 test("using apply to invoke function", () => {
@@ -72,6 +74,6 @@ test("using apply to invoke function", () => {
     //function and the second is the array of arguments to be passed into the called function.
     const result = invokee.apply("I am this!", ["I am arg1", "I am arg2"]);
         
-    equal(__, result, "what will the value of invokee's this be?");
+    equal("I am this!I am arg1I am arg2", result, "what will the value of invokee's this be?");
 });
 
