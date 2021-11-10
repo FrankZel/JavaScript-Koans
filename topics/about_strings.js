@@ -1,6 +1,6 @@
 // module("About Strings (topics/about_strings.js)");
-const { equal } = require('assert')
-const { __, test } = require('../support/koans')
+const equal = require('assert').equal
+const test = require('../support/koans').test
 
 test("delimiters", () => {
     const singleQuotedString = 'apple';
@@ -21,7 +21,7 @@ test("character Type", () => {
 
 test("escape character", () => {
     const stringWithAnEscapedCharacter  = "\u0041pple";
-    equal("\u0041pple", stringWithAnEscapedCharacter, 'what  is the value of stringWithAnEscapedCharacter?');
+    equal("Apple", stringWithAnEscapedCharacter, 'what  is the value of stringWithAnEscapedCharacter?');
 });
 
 test("string.length", () => {

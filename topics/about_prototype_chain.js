@@ -2,8 +2,8 @@
 
 // https://developer.mozilla.org/en/JavaScript/Guide/Inheritance_and_the_prototype_chain
 // module("About Prototype Chain (topics/about_prototype_chain.js)");
-const { equal } = require('assert')
-const { __, test } = require('../support/koans')
+const equal = require('assert').equal
+const test = require('../support/koans').test
 
 const father = {
   b: 3,
@@ -40,7 +40,7 @@ test("Is there an 'a' and 'b' property on child?", () => {
 
 test("If 'b' was removed, whats b value?", () => {
   delete child.b;
-  equal(3, child.b, 'what is \'b\' value now?');
+  equal(3, child.b, 'what is \'b\' value now?'); //Toma el del padre!!
 });
 
 
@@ -59,7 +59,7 @@ test("Is there a 'c' property on child?", () => {
 // Is there a 'd' own property on child.[[Prototype]]? No, check it prototype
 // child.[[Prototype]].[[Prototype]] is null, stop searching, no property found, return...
 test("Is there an 'd' property on child?", () => {
-  equal(null, child.d, 'what is the value of child.d?');
+  equal(undefined, child.d, 'what is the value of child.d?');
 });
 
 

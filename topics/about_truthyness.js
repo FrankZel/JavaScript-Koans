@@ -1,6 +1,6 @@
 // module("About Truthyness (topics/about_truthyness.js)");
-const { equal, deepEqual } = require('assert')
-const { __, test } = require('../support/koans')
+const equal = require('assert').equal
+const test = require('../support/koans').test
 
 test("truthyness of positive numbers", () => {
     const oneIsTruthy = 1 ? true : false;

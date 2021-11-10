@@ -1,6 +1,6 @@
 // module("About Reflection (topics/about_reflection.js)");
 const { equal, deepEqual, ok } = require('assert')
-const { __, test } = require('../support/koans')
+const test = require('../support/koans').test
 
 function A() {
     this.aprop = "A";
@@ -39,14 +39,14 @@ test("property enumeration", () => {
 
 test("hasOwnProperty", () => {
     const b = new B();
-    const propertyName; // tira una ex aca, no se como solucionar.
+    let propertyName; //Cambie const por let sino rompe
 
     const keys = [];
     for (propertyName in b) {
         keys.push(propertyName);
     }
-    equal(0, keys.length, 'how many elements are in the keys array?');
-    deepEqual([1, 2], keys, 'what are the properties of the array?');
+    equal(2, keys.length, 'how many elements are in the keys array?');
+    deepEqual(["bprop", "aprop"], keys, 'what are the properties of the array?');
 
     // hasOwnProperty returns true if the parameter is a property directly on the object,
     // but not if it is a property accessible via the prototype chain.
@@ -57,20 +57,20 @@ test("hasOwnProperty", () => {
         }
     }
     equal(1, ownKeys.length, 'how many elements are in the ownKeys array?');
-    deepEqual([2], ownKeys, 'what are the own properties of the array?');
+    deepEqual(["bprop"], ownKeys, 'what are the own properties of the array?');
 });
 
 test("constructor property", () => {
     const a = new A();
     const b = new B();
-    equal("object", typeof(a.constructor), "what is the type of a's constructor?");
-    equal("constructor", a.constructor.name, "what is the name of a's constructor?");
-    equal("constructor", b.constructor.name, "what is the name of b's constructor?");
+    equal("function", typeof(a.constructor), "what is the type of a's constructor?");
+    equal("A", a.constructor.name, "what is the name of a's constructor?");
+    equal("A", b.constructor.name, "what is the name of b's constructor?"); //Porque B es prototype de A?
 });
 
 test("eval", () => {
     // eval executes a string
     let result = "";
     eval("result = 'apple' + ' ' + 'pie'");
-    equal("apple pie", result, 'what is the value of result?');
+    equal('apple pie', result, 'what is the value of result?');
 });
